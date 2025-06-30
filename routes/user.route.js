@@ -1,9 +1,17 @@
 import express from "express";
+import {
+  deleteUser,
+  getUserById,
+  getUsers,
+  updateUser,
+} from "../controller/user.controller.js";
+import verifyToken from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
-router.get("/test", (req, res) => {
-  res.send("user berhasil dijalankan");
-});
+router.get("/", getUsers);
+router.get("/:id", verifyToken, getUserById);
+router.put("/:id", verifyToken, updateUser);
+router.delete("/:id", verifyToken, deleteUser);
 
 export default router;
